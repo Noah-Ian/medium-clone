@@ -1,9 +1,4 @@
-import express from "express";
-
-const app = express();
-app.get("/", (req,res) => {
-    res.send("Medium Clone API");
-})
+import app from "./app.js"
 
 const PORT = 5000;
 
