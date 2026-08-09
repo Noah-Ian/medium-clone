@@ -51,8 +51,9 @@ export async function register(
         });
 
     } catch(error){
+        console.error("REGISTER ERROR:", error);
         res.status(500).json({
-            message: "Server error"
+            message: "Server error registration"
         });
     }
 }
@@ -109,13 +110,15 @@ export async function login(
         );
 
         res.json({
-            message:"Login successful"
+            message:"Login successful",
+            token
         });
     }
 
     catch(error){
+        console.error("REGISTER ERROR:", error);
         res.status(500).json({
-            message:"Server error"
+            message:"Server error login"
         });
     }
 }
