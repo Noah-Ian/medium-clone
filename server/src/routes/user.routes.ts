@@ -1,12 +1,11 @@
 import { Router } from "express";
+import {profile} from "../controllers/user.controller.js";
+import { authenticate } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.json({
-        message: "Users route working"
-    });
-});
+router.get("/profile", authenticate,
+    profile);
 
 
 export default router;
