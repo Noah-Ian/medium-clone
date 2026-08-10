@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import articleRoutes from "./routes/article.routes.js";
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.use("/api/auth",
 );
 
 app.use("/api/users", userRoutes);
+
+app.use("/api/articles", articleRoutes);
 
 export default app;
