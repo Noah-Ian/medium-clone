@@ -7,7 +7,6 @@ export async function createArticle(
     req:AuthRequest,
     res:Response
 ){
-    console.log("BODY:", req.body);
     try{
         const{
             title,
@@ -70,5 +69,237 @@ avatar:true
 
 
 res.json(articles);
+
+}
+
+//get a single article
+
+export async function getArticle(
+    req:AuthRequest,
+    res:Response
+){
+    try{
+        const {id} = req.params;
+
+        if ( typeof id !== "string"){
+            return res.status(400).json({
+                message:"Invalid Article ID"
+            });
+        }
+
+        const article = await prisma.article.findUnique({
+
+            where:{
+                id
+            },
+            include:{
+                author:{
+                    select:{
+                        id:true,
+                        name:true,
+                        avatar:true
+                    }
+                }
+            }
+        });
+
+        if (!article){
+            return res.status(404).json({
+                message:"Article not found"
+            });
+        }
+
+        res.json(article);
+    }catch(error){
+        
+        res.status(500).json({
+            message:"Server error"
+        });
+    }
+    
+}
+
+//updating an article
+export async function updateArticle(
+    req:AuthRequest,
+    res:Response
+){
+    try{
+        const {id} = req.params;
+
+        if(typeof id !== "string"){
+            return res.status(400).json({
+                message:"Invalid Article ID"
+            });
+        }
+
+        const article = await prisma.article.findUnique({
+            where: {
+                id
+            }
+        });
+
+        if (!article){
+            return res.status(404).json({
+                message:"Article not found"
+            });
+        }
+
+        if (article.authorId !== req.user!.id){
+            return res.status(403).json({
+
+            message:"Not allowed"
+
+            });
+        }
+
+        const updatedArticle = await prisma.article.update({
+
+        where:{
+        id
+        },
+
+        data:req.body
+
+        });
+
+        res.json(updatedArticle);
+    }catch(error){
+        res.status(500).json({
+            message:"server error"
+        });
+    }
+}
+
+//deleting article
+
+export async function deleteArticle(
+    req:AuthRequest,
+    res:Response
+){
+    try{
+        const {id} = req.params;
+
+         if(typeof id !== "string"){
+            return res.status(400).json({
+                message:"Invalid Article ID"
+            });
+        }
+
+        const article = await prisma.article.findUnique({
+            where: {
+                id
+            }
+        });
+
+        if(!article){
+            return res.status(404).json({
+                message:"Article not found"
+            });
+        }
+
+        if(article.authorId !== req.user!.id){
+
+        return res.status(403).json({
+
+        message:"Not allowed"
+
+        });
+
+        }
+
+        await prisma.article.delete({
+
+        where:{
+        id
+        }
+
+        });
+
+        res.json({
+            message:"article deleted"
+        });
+        
+    }catch(error){
+        res.status(500).json({
+            message:"server error"
+        });
+    }
+}
+
+//publishing an article
+export async function publishArticle(
+
+req:AuthRequest,
+
+res:Response
+
+){
+    try{
+        const {id}=req.params;
+
+        if(typeof id !== "string"){
+            return res.status(400).json({
+                message:"Invalid Article ID"
+            });
+        }
+
+        const article =
+        await prisma.article.findUnique({
+
+        where:{
+        id
+        }
+
+        });
+
+
+
+        if(!article){
+
+        return res.status(404).json({
+
+        message:"Article not found"
+
+        });
+
+        }
+
+
+
+        if(article.authorId !== req.user!.id){
+
+        return res.status(403).json({
+
+        message:"Not allowed"
+
+        });
+
+        }
+
+
+
+        const publishedArticle =
+        await prisma.article.update({
+
+        where:{
+        id
+        },
+
+        data:{
+        published:true
+        }
+
+        });
+
+
+        res.json(publishedArticle);
+
+
+    }catch(error){
+        res.status(500).json({
+            message:"server error"
+        });
+    }
 
 }
