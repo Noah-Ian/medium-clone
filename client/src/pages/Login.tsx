@@ -8,7 +8,7 @@ function Login(){
     });
 
     async function handleSubmit(
-        e:React.FormEvent
+        e:React.SubmitEvent
     ){
         e.preventDefault();
 
