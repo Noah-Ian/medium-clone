@@ -10,7 +10,7 @@ function Home(){
 
     if(isLoading){
         return <div>
-            Loading...
+            Loading...      
         </div>
     }
 

@@ -1,4 +1,5 @@
 import type {Article} from '../types/article';
+import { Link } from 'react-router-dom';
 
 interface Props{
     article: Article;
@@ -8,7 +9,11 @@ function ArticleCard({
     article
 }:Props): React.ReactElement{
     return(
-        <div className="border-b py-6">
+        <Link
+        to={`/articles/${article.id}`}
+        >
+
+        <div className="border-b py-6 cursor-pointer">
 
         <h1 className='text-2xl font-bold'>
             {article.title}
@@ -28,6 +33,7 @@ function ArticleCard({
 
         </div>
         </div>
+        </Link>
     )
 }
 
