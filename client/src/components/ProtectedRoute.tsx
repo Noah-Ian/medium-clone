@@ -24,11 +24,11 @@ const {
 token
 }=useAuth();
 
-
+console.log("ProtectedRoute token:", token);
 
 if(!token){
 
-return <Navigate to="/login"/>
+return <Navigate to="/login" replace/>
 
 }
 

@@ -3,7 +3,7 @@ import api from "./api";
 export async function getArticles(){
 
     const response =await api.get(
-        "/articles"
+        "/articles/"
     );
 
     return response.data;
@@ -24,7 +24,7 @@ export async function createArticle(data:{
 
     const token = localStorage.getItem("token");
     const response = await api.post(
-        "articles/",
+        "/articles/",
         data,
         {
             headers:{
