@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import articleRoutes from "./routes/article.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
+import likeRoutes from "./routes/like.routes.js";
 
 const app = express();
 
@@ -19,5 +20,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes);
 
 app.use("/api/comments", commentRoutes);
+
+app.use("/api/likes", likeRoutes)
 
 export default app;
