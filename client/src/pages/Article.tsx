@@ -1,7 +1,7 @@
 import { getArticle } from "../api/article.api";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import Comments from "../components/comments";
+import Comments from "../components/Comments";
 
 function ArticlePage(){
     const {id} = useParams();
