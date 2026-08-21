@@ -20,7 +20,7 @@ React • TypeScript • Node.js • Express • Prisma • PostgreSQL • Tailw
 ### 1. Clone the repository
 
 git clone <your-repository-url>
-cd modern-medium-clone
+cd medium-clone
 
 ### 2. Install dependencies
 
